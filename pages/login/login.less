@@ -1,0 +1,49 @@
+@import url("../../style.less");
+
+.logo {
+	// 当前图片宽度是页面宽度的70%
+	width: 70%;
+	//设置水平居中
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	
+	margin-top: 30%;
+}
+.logo-title {
+	font-size: 48rpx;
+	font-weight: bold;
+	text-align: center;
+	margin-top: 8%;
+	color: @font-color;
+}
+.logo-subtitle {
+	font-size: 34rpx;
+	text-align: center;
+	color: @desc-color;
+	margin-top: 20rpx;
+}
+.login-btn {
+	width: 60%;
+	position: absolute;
+	bottom: 20%;
+	left: 20%;
+	background-color: @background-color;
+	color: #fff;
+	//为以后给这个按钮加上内填充或者边框线他的尺寸不会发生变化
+	box-sizing: border-box;
+	&:active {
+		background-color: @background-color-active;
+	}
+}
+.register-container {
+	position: absolute;
+	bottom: 50rpx;
+	width: 100%;
+	text-align: center;
+	font-size: 30rpx;
+	color: @font-color;
+	.register {
+		color: @background-color
+	}
+}
