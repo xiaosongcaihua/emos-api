@@ -1,6 +1,6 @@
 <template>
 	<view>
-		首页
+		个人信息
 	</view>
 </template>
 
@@ -17,6 +17,6 @@
 	}
 </script>
 
-<style>
-
+<style lang="less">
+	@import url("mine.less");
 </style>

@@ -1,6 +1,6 @@
 <template>
 	<view>
-		首页
+		联系人
 	</view>
 </template>
 
@@ -17,6 +17,7 @@
 	}
 </script>
 
-<style>
+<style lang="less">
+	@import url("contacts.less");
 
 </style>

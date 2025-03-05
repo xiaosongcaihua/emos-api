@@ -56,7 +56,9 @@ import { provide } from "vue";
 									let permission = resp.data.permission
 									uni.setStorage("permission" , permission)
 									console.log("权限列表" + permission)
-									// TODO 跳转到index页面
+									uni.switchTab({
+										url:"/pages/index/index"
+									})
 								});
 							}
 						});
