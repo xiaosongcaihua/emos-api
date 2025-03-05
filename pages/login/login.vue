@@ -25,7 +25,29 @@
 				})
 			},
 			login:function(){
-				
+				let that  = this
+				uni.login({
+					provider: 'weixin',
+					success: function (resp) {
+						let code = resp.code;
+						let data = {
+							"code" : code
+						}
+						that.ajax(that.url.login , "POST" , data , function(resp){
+							let permission = resp.data.permission
+							uni.setStorage("permission" , permission)
+							console.log("权限列表" + permission)
+							// TODO 跳转到index页面
+						});
+					},
+					fail:function(e) {
+						console.log(e);
+						uni.showToast({
+							icon:"none",
+							title:"执行异常"
+						})
+					},
+				})
 			}
 		}
 	}

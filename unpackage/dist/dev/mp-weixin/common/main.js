@@ -8,7 +8,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(wx, createApp) {
+/* WEBPACK VAR INJECTION */(function(wx, createApp, uni) {
 
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
@@ -24,7 +24,50 @@ _vue.default.config.productionTip = false;
 _App.default.mpType = 'app';
 var app = new _vue.default(_objectSpread({}, _App.default));
 createApp(app).$mount();
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/wx.js */ 1)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["createApp"]))
+
+//声明全局路径
+var baseUrl = "http://localhost:8080";
+_vue.default.prototype.url = {
+  register: baseUrl + "/user/register",
+  login: baseUrl + "/user/login"
+};
+
+//声明ajex统一处理方法
+_vue.default.prototype.ajax = function (url, method, data, fun) {
+  console.log(url);
+  console.log(method);
+  console.log(data);
+  uni.request({
+    "url": url,
+    "method": method,
+    "data": data,
+    "header": {
+      "token": uni.getStorage("token")
+    },
+    success: function success(resp) {
+      console.log("登录成功");
+      if (resp.statusCode == 401) {
+        uni.redirectTo({
+          url: "/pages/login/login"
+        });
+      } else if (resp.statusCode == 200 && resp.data.code == 200) {
+        var _data = resp.data;
+        if (_data.hasOwnProperty("token")) {
+          var token = _data.token;
+          console.log(token);
+          uni.setStorage("token", token);
+        }
+        fun(resp);
+      } else {
+        uni.showToast({
+          icon: "none",
+          title: resp.data
+        });
+      }
+    }
+  });
+};
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/wx.js */ 1)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["createApp"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 
