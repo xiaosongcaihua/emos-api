@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/login/login",
+    "pages/checkin/checkin",
     "pages/register/register",
     "pages/metting_list/metting_list",
     "pages/document/document",
