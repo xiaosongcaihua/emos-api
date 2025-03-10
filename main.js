@@ -25,11 +25,18 @@ export function createApp() {
 let baseUrl = "http://localhost:8080"
 Vue.prototype.url = {
 	register : baseUrl + "/user/register",
-	login : baseUrl + "/user/login"
+	login : baseUrl + "/user/login",
+	checkin: baseUrl + "/checkin/checkin",
+	createFaceModel: baseUrl + "/checkin/createFaceModel",
+	validCanCheckIn: baseUrl + "/checkin/validCanCheckIn",
+}
+Vue.prototype.param = {
+	token : ""
 }
 
 //声明ajex统一处理方法
 Vue.prototype.ajax = function(url , method , data , fun) {
+	let that = this
 	console.log(url);
 	console.log(method);
 	console.log(data);
@@ -38,7 +45,7 @@ Vue.prototype.ajax = function(url , method , data , fun) {
 		"method":method,
 		"data":data,
 		"header": {
-			"token" :  uni.getStorage("token")
+			"token" :  that.param.token
 		},
 		success:function(resp){
 			console.log("登录成功")
@@ -50,8 +57,7 @@ Vue.prototype.ajax = function(url , method , data , fun) {
 				let data = resp.data
 				if (data.hasOwnProperty("token")){
 					let token = data.token
-					console.log(token)
-					uni.setStorage("token" , token)
+					that.param.token = token
 				}
 				fun(resp)
 			} else {

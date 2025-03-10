@@ -29,11 +29,18 @@ createApp(app).$mount();
 var baseUrl = "http://localhost:8080";
 _vue.default.prototype.url = {
   register: baseUrl + "/user/register",
-  login: baseUrl + "/user/login"
+  login: baseUrl + "/user/login",
+  checkin: baseUrl + "/checkin/checkin",
+  createFaceModel: baseUrl + "/checkin/createFaceModel",
+  validCanCheckIn: baseUrl + "/checkin/validCanCheckIn"
+};
+_vue.default.prototype.param = {
+  token: ""
 };
 
 //声明ajex统一处理方法
 _vue.default.prototype.ajax = function (url, method, data, fun) {
+  var that = this;
   console.log(url);
   console.log(method);
   console.log(data);
@@ -42,7 +49,7 @@ _vue.default.prototype.ajax = function (url, method, data, fun) {
     "method": method,
     "data": data,
     "header": {
-      "token": uni.getStorage("token")
+      "token": that.param.token
     },
     success: function success(resp) {
       console.log("登录成功");
@@ -54,8 +61,7 @@ _vue.default.prototype.ajax = function (url, method, data, fun) {
         var _data = resp.data;
         if (_data.hasOwnProperty("token")) {
           var token = _data.token;
-          console.log(token);
-          uni.setStorage("token", token);
+          that.param.token = token;
         }
         fun(resp);
       } else {
