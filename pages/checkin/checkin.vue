@@ -44,6 +44,9 @@
 					}, 1000);
 					that.canCheckin = false;
 				}
+				uni.redirectTo({
+					url:"../check_result/check_result"
+				})
 			});
 		},
 		methods: {
@@ -150,7 +153,9 @@
 													uni.showToast({
 														title:"签到成功",
 														complete:function(){
-															// TODO 跳转到签到结果统计页面
+															uni.redirectTo({
+																url:"../check_result/check_result"
+															})
 														}
 													});
 												}

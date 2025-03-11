@@ -187,6 +187,9 @@ var _default = {
         }, 1000);
         that.canCheckin = false;
       }
+      uni.redirectTo({
+        url: "../check_result/check_result"
+      });
     });
   },
   methods: {
@@ -292,7 +295,9 @@ var _default = {
                         uni.showToast({
                           title: "签到成功",
                           complete: function complete() {
-                            // TODO 跳转到签到结果统计页面
+                            uni.redirectTo({
+                              url: "../check_result/check_result"
+                            });
                           }
                         });
                       }

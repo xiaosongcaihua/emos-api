@@ -75,6 +75,15 @@
             
         }
         
+        ,{
+            "path" : "pages/check_result/check_result",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
