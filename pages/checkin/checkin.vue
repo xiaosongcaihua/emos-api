@@ -44,9 +44,9 @@
 					}, 1000);
 					that.canCheckin = false;
 				}
-				uni.redirectTo({
-					url:"../check_result/check_result"
-				})
+				// uni.redirectTo({
+				// 	url:"../check_result/check_result"
+				// })
 			});
 		},
 		methods: {

@@ -28,9 +28,9 @@
 				<view class="row">
 					<image src="../../static/icon-7.png" mode="widthFix" class="icon-small"></image>
 					<text class="desc">{{ address }}</text>
-					<text class="checkin-result green" v-if="risk == '低风险'">{{ risk }}</text>
-					<text class="checkin-result yellow" v-if="risk == '中风险'">{{ risk }}</text>
-					<text class="checkin-result red" v-if="risk == '高风险'">{{ risk }}</text>
+					<text class="checkin-result green" v-if="risk == '正常'">{{ risk }}</text>
+					<text class="checkin-result yellow" v-if="risk == '正常'">{{ risk }}</text>
+					<text class="checkin-result red" v-if="risk == '正常'">{{ risk }}</text>
 				</view>
 				<view class="row">
 					<image src="../../static/icon-8.png" mode="widthFix" class="icon-small"></image>
@@ -120,6 +120,24 @@
 					}
 				]
 			}
+		},
+		onShow:function(){
+			let that = this;
+			that.ajax(this.url.searchTodayCheckin, 'GET', null, function(resp) {
+				let result = resp.data.result;
+				that.name = result.name;
+				that.photo = result.photo;
+				that.deptName = result.deptName;
+				that.date = result.date;
+				that.attendanceTime = result.attendanceTime;
+				that.closingTime = result.closingTime;
+				that.checkinTime = result.checkinTime;
+				that.status = result.status;
+				that.risk = result.risk;
+				that.address = result.address;
+				that.checkinDays = result.checkinDays;
+				that.weekCheckin = result.weekCheckin;
+			}); 
 		},
 		methods: {
 
