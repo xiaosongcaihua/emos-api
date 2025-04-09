@@ -8,7 +8,8 @@
     "pages/contacts/contacts",
     "pages/mine/mine",
     "pages/index/index",
-    "pages/check_result/check_result"
+    "pages/check_result/check_result",
+    "pages/my_checkin/my_checkin"
   ],
   "subPackages": [],
   "window": {

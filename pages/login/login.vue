@@ -35,7 +35,7 @@
 						}
 						that.ajax(that.url.login , "POST" , data , function(resp){
 							let permission = resp.data.permission
-							uni.setStorage("permission" , permission)
+							that.param.permission = permission
 							console.log("权限列表" + permission)
 							uni.switchTab({
 								url:"/pages/index/index"

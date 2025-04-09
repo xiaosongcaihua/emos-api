@@ -29,10 +29,23 @@ Vue.prototype.url = {
 	checkin: baseUrl + "/checkin/checkin",
 	createFaceModel: baseUrl + "/checkin/createFaceModel",
 	validCanCheckIn: baseUrl + "/checkin/validCanCheckIn",
-	searchTodayCheckin: baseUrl + "/checkin/searchTodayCheckin"
+	searchTodayCheckin: baseUrl + "/checkin/searchTodayCheckin",
+	searchUserSummary: baseUrl + "/user/searchUserSummary"
 }
 Vue.prototype.param = {
-	token : ""
+	token : "",
+	permission : "",
+}
+Vue.prototype.checkPermission = function(perms) {
+	let permission = this.param.permission
+	let result = false;
+	for (let one of perms) {
+		if (permission.indexOf(one) != -1) {
+			result = true;
+			break;
+		}
+	} 
+	return result;
 }
 
 //声明ajex统一处理方法
@@ -41,6 +54,7 @@ Vue.prototype.ajax = function(url , method , data , fun) {
 	console.log(url);
 	console.log(method);
 	console.log(data);
+	console.log(that.param.token)
 	uni.request({
 		"url":url,
 		"method":method,
