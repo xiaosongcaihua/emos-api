@@ -9,7 +9,8 @@
     "pages/mine/mine",
     "pages/index/index",
     "pages/check_result/check_result",
-    "pages/my_checkin/my_checkin"
+    "pages/my_checkin/my_checkin",
+    "pages/message/message"
   ],
   "subPackages": [],
   "window": {

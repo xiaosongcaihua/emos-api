@@ -164,6 +164,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 var uniCalendar = function uniCalendar() {
   Promise.all(/*! require.ensure | components/uni-calendar/uni-calendar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-calendar/uni-calendar")]).then((function () {
     return resolve(__webpack_require__(/*! @/components/uni-calendar/uni-calendar.vue */ 129));
@@ -181,7 +184,62 @@ var _default = {
       sum_3: 0
     };
   },
-  methods: {}
+  onShow: function onShow() {
+    var that = this;
+    var date = new Date();
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    that.searchCheckin(that, year, month);
+  },
+  methods: {
+    searchCheckin: function searchCheckin(ref, year, month) {
+      var that = ref;
+      that.sum_1 = 0;
+      that.sum_2 = 0;
+      that.sum_3 = 0;
+      that.list.length = 0;
+      that.ajax(that.url.searchMonthCheckin, "POST", {
+        year: year,
+        month: month
+      }, function (resp) {
+        var _iterator = _createForOfIteratorHelper(resp.data.list),
+          _step;
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var one = _step.value;
+            if (one.status != null && one.status != "") {
+              var color = "";
+              if (one.status == "正常") {
+                color = "green";
+              } else if (one.status == "迟到") {
+                color = "orange";
+              } else if (one.status == "缺勤") {
+                color = "red";
+              }
+              that.list.push({
+                date: one.date,
+                info: one.status,
+                color: color
+              });
+            }
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
+        }
+        that.sum_1 = resp.data.sum_1;
+        that.sum_2 = resp.data.sum_2;
+        that.sum_3 = resp.data.sum_3;
+      });
+    },
+    changeMonth: function changeMonth(e) {
+      var that = this;
+      var year = e.year;
+      var month = e.month;
+      that.searchCheckin(that, year, month);
+    }
+  }
 };
 exports.default = _default;
 

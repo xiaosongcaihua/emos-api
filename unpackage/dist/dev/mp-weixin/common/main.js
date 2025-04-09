@@ -37,7 +37,8 @@ _vue.default.prototype.url = {
   createFaceModel: baseUrl + "/checkin/createFaceModel",
   validCanCheckIn: baseUrl + "/checkin/validCanCheckIn",
   searchTodayCheckin: baseUrl + "/checkin/searchTodayCheckin",
-  searchUserSummary: baseUrl + "/user/searchUserSummary"
+  searchUserSummary: baseUrl + "/user/searchUserSummary",
+  searchMonthCheckin: baseUrl + "/checkin/searchMonthCheckin"
 };
 _vue.default.prototype.param = {
   token: "",
