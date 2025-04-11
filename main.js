@@ -31,10 +31,15 @@ Vue.prototype.url = {
 	validCanCheckIn: baseUrl + "/checkin/validCanCheckIn",
 	searchTodayCheckin: baseUrl + "/checkin/searchTodayCheckin",
 	searchUserSummary: baseUrl + "/user/searchUserSummary",
-	searchMonthCheckin:baseUrl + "/checkin/searchMonthCheckin"
+	searchMonthCheckin:baseUrl + "/checkin/searchMonthCheckin", 
+	searchMessageById: baseUrl + "/message/searchMessageById",
+	updateUnreadMessage: baseUrl + "/message/updateUnreadMessage",
+	deleteMessageRefById: baseUrl + "/message/deleteMessageRefById",
+	searchMessageByPage: baseUrl + "/message/searchMessageByPage",
+	refreshMessage: baseUrl + "/message/refreshMessage"
 }
 Vue.prototype.param = {
-	token : "",
+	token : "", 
 	permission : "",
 }
 Vue.prototype.checkPermission = function(perms) {

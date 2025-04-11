@@ -24,7 +24,7 @@
 				<image class="notify-icon" mode="widthFix" src="../../static/icon-1.png"></image>
 				消息提醒
 			</view>
-			<view class="notify-content">你有{{ unreaderRows}} 条消息未读</view>
+			<view class="notify-content" @tap="toPage('消息提醒', '/pages/message_list/message_list')">你有{{ unreadRows}} 条消息未读</view>
 			<image class="more-icon" mode="widthFix" src="../../static/icon-2.png"></image>
 		</view>
 		<view class="nav-container">
@@ -83,20 +83,71 @@
 				</view>
 			</view>
 		</view>
+		<uni-popup ref="popupMsg" type="top">
+			<uni-popup-message type="success" :message="'接收到' + lastRows + '条消息'" :duration="2000"></uni-popup-message>
+		</uni-popup>
 	</view>
 </template>
 
 <script>
+	import uniPopup from '@/components/uni-popup/uni-popup.vue';
+	import uniPopupMessage from '@/components/uni-popup/uni-popup-message.vue';
+	import uniPopupDialog from '@/components/uni-popup/uni-popup-dialog.vue';
 	export default {
+		components: {
+			uniPopup,
+			uniPopupMessage,
+			uniPopupDialog
+		},
 		data() {
 			return {
-				unreaderRows: 0
-			}
+				timer: null,
+				unreadRows: 0,
+				lastRows: 0
+			};
+		},
+		onLoad: function() {
+			let that = this
+			uni.$on("showMessage", function() {
+				that.$refs.popupMsg.open()
+			})
+			that.ajax(that.url.refreshMessage, "GET", null, function(resp) {
+				that.unreadRows = resp.data.unreadRows
+				that.lastRows = resp.data.lastRows
+				if (that.lastRows > 0) {
+					uni.$emit("showMessage")
+				}
+			})
+		},
+		onUnload: function() {
+			uni.$off("showMessage")
+		},
+		onShow: function() {
+			let that = this
+			that.timer = setInterval(function() {
+				that.ajax(that.url.refreshMessage, "GET", null, function(resp) {
+					that.unreadRows = resp.data.unreadRows
+					that.lastRows = resp.data.lastRows
+					if (that.lastRows > 0) {
+						uni.$emit("showMessage")
+					}
+				})
+			}, 5000)
+			that.meetingPage = 1
+			that.isMeetingLastPage = false
+			that.meetingList = []
+			that.loadMeetingList(that)
+			let date = new Date()
+			that.loadMeetingInMonth(that, date.getFullYear(), date.getMonth() + 1)
+		},
+		onHide: function() {
+			let that = this
+			clearInterval(that.timer)
 		},
 		methods: {
-			toPage:function(name , url){
+			toPage: function(name, url) {
 				uni.navigateTo({
-					url:url
+					url: url
 				})
 			}
 		}
