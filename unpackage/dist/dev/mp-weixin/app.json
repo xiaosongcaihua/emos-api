@@ -16,7 +16,9 @@
     "pages/members/members",
     "pages/approval/approval",
     "pages/approval_list/approval_list",
-    "pages/role/role"
+    "pages/role/role",
+    "pages/role_list/role_list",
+    "pages/dept_list/dept_list"
   ],
   "subPackages": [],
   "window": {

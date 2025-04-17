@@ -57,7 +57,17 @@ _vue.default.prototype.url = {
   selectUserPhotoAndName: baseUrl + "/user/selectUserPhotoAndName",
   genUserSig: baseUrl + "/user/genUserSig",
   searchRoomIdByUUID: baseUrl + "/meeting/searchRoomIdByUUID",
-  searchUserMeetingInMonth: baseUrl + "/meeting/searchUserMeetingInMonth"
+  searchUserMeetingInMonth: baseUrl + "/meeting/searchUserMeetingInMonth",
+  searchRoleOwnPermission: baseUrl + "/role/searchRoleOwnPermission",
+  searchAllPermission: baseUrl + "/role/searchAllPermission",
+  insertRole: baseUrl + "/role/insertRole",
+  updateRolePermissions: baseUrl + "/role/updateRolePermission",
+  searchAllRole: baseUrl + "/role/searchAllRole",
+  deleteRoleById: baseUrl + "/role/deleteRoleById",
+  searchAllDept: baseUrl + "/dept/searchAllDept",
+  insertDept: baseUrl + "/dept/insertDept",
+  deleteDeptById: baseUrl + "/dept/deleteDeptById",
+  updateDeptById: baseUrl + "/dept/updateDeptById"
 };
 _vue.default.prototype.param = {
   token: "",

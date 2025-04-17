@@ -229,7 +229,22 @@ module.exports = _toConsumableArray, module.exports.__esModule = true, module.ex
 
 /***/ }),
 
-/***/ 182:
+/***/ 19:
+/*!******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ 9);
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return arrayLikeToArray(arr);
+}
+module.exports = _arrayWithoutHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ 190:
 /*!************************************************************!*\
   !*** D:/uni-peoject/emos-wx/components/uni-popup/popup.js ***!
   \************************************************************/
@@ -244,7 +259,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 183));
+var _message = _interopRequireDefault(__webpack_require__(/*! ./message.js */ 191));
 // 定义 type 类型:弹出类型：top/bottom/center
 var config = {
   // 顶部弹出
@@ -272,7 +287,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 183:
+/***/ 191:
 /*!**************************************************************!*\
   !*** D:/uni-peoject/emos-wx/components/uni-popup/message.js ***!
   \**************************************************************/
@@ -309,21 +324,6 @@ var _default = {
   }
 };
 exports.default = _default;
-
-/***/ }),
-
-/***/ 19:
-/*!******************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/arrayWithoutHoles.js ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayLikeToArray = __webpack_require__(/*! ./arrayLikeToArray.js */ 9);
-function _arrayWithoutHoles(arr) {
-  if (Array.isArray(arr)) return arrayLikeToArray(arr);
-}
-module.exports = _arrayWithoutHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 
@@ -2749,7 +2749,21 @@ module.exports = _iterableToArray, module.exports.__esModule = true, module.expo
 
 /***/ }),
 
-/***/ 205:
+/***/ 21:
+/*!******************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/nonIterableSpread.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+module.exports = _nonIterableSpread, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ 213:
 /*!**************************************************************!*\
   !*** D:/uni-peoject/emos-wx/components/uni-calendar/util.js ***!
   \**************************************************************/
@@ -2767,7 +2781,7 @@ exports.default = void 0;
 var _typeof2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/typeof */ 13));
 var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ 23));
 var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ 24));
-var _calendar = _interopRequireDefault(__webpack_require__(/*! ./calendar.js */ 206));
+var _calendar = _interopRequireDefault(__webpack_require__(/*! ./calendar.js */ 214));
 var Calendar = /*#__PURE__*/function () {
   function Calendar() {
     var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
@@ -3158,7 +3172,7 @@ exports.default = _default;
 
 /***/ }),
 
-/***/ 206:
+/***/ 214:
 /*!******************************************************************!*\
   !*** D:/uni-peoject/emos-wx/components/uni-calendar/calendar.js ***!
   \******************************************************************/
@@ -3673,20 +3687,6 @@ var calendar = {
 };
 var _default = calendar;
 exports.default = _default;
-
-/***/ }),
-
-/***/ 21:
-/*!******************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/nonIterableSpread.js ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-module.exports = _nonIterableSpread, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 
@@ -4227,7 +4227,23 @@ function resolveLocaleChain(locale) {
 
 /***/ }),
 
-/***/ 228:
+/***/ 23:
+/*!***************************************************************!*\
+  !*** ./node_modules/@babel/runtime/helpers/classCallCheck.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+module.exports = _classCallCheck, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+
+/***/ 236:
 /*!************************************************************!*\
   !*** D:/uni-peoject/emos-wx/components/uni-icons/icons.js ***!
   \************************************************************/
@@ -4374,22 +4390,6 @@ var _default = {
   "shop": "\uE609"
 };
 exports.default = _default;
-
-/***/ }),
-
-/***/ 23:
-/*!***************************************************************!*\
-  !*** ./node_modules/@babel/runtime/helpers/classCallCheck.js ***!
-  \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-module.exports = _classCallCheck, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
 
