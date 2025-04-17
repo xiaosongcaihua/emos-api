@@ -30,6 +30,7 @@ createApp(app).$mount();
 
 //声明全局路径
 var baseUrl = "http://localhost:8080";
+var workflow = "http://localhost:9090/emos-workflow";
 _vue.default.prototype.url = {
   register: baseUrl + "/user/register",
   login: baseUrl + "/user/login",
@@ -39,15 +40,29 @@ _vue.default.prototype.url = {
   searchTodayCheckin: baseUrl + "/checkin/searchTodayCheckin",
   searchUserSummary: baseUrl + "/user/searchUserSummary",
   searchMonthCheckin: baseUrl + "/checkin/searchMonthCheckin",
+  refreshMessage: baseUrl + "/message/refreshMessage",
+  searchMessageByPage: baseUrl + "/message/searchMessageByPage",
   searchMessageById: baseUrl + "/message/searchMessageById",
   updateUnreadMessage: baseUrl + "/message/updateUnreadMessage",
   deleteMessageRefById: baseUrl + "/message/deleteMessageRefById",
-  searchMessageByPage: baseUrl + "/message/searchMessageByPage",
-  refreshMessage: baseUrl + "/message/refreshMessage"
+  searchMyMeetingListByPage: baseUrl + "/meeting/searchMyMeetingListByPage",
+  searchUserGroupByDept: baseUrl + "/user/searchUserGroupByDept",
+  searchMembers: baseUrl + "/user/searchMembers",
+  insertMeeting: baseUrl + "/meeting/insertMeeting",
+  searchMeetingById: baseUrl + "/meeting/searchMeetingById",
+  updateMeetingInfo: baseUrl + "/meeting/updateMeetingInfo",
+  deleteMeetingById: baseUrl + "/meeting/deleteMeetingById",
+  searchUserTaskListByPage: workflow + "/workflow/searchUserTaskListByPage",
+  approvalMeeting: workflow + "/workflow/approvalMeeting",
+  selectUserPhotoAndName: baseUrl + "/user/selectUserPhotoAndName",
+  genUserSig: baseUrl + "/user/genUserSig",
+  searchRoomIdByUUID: baseUrl + "/meeting/searchRoomIdByUUID",
+  searchUserMeetingInMonth: baseUrl + "/meeting/searchUserMeetingInMonth"
 };
 _vue.default.prototype.param = {
   token: "",
-  permission: ""
+  permission: "",
+  userId: ""
 };
 _vue.default.prototype.checkPermission = function (perms) {
   var permission = this.param.permission;
@@ -69,6 +84,33 @@ _vue.default.prototype.checkPermission = function (perms) {
   }
   return result;
 };
+Date.prototype.format = function (fmt) {
+  var o = {
+    "M+": this.getMonth() + 1,
+    //月份 
+    "d+": this.getDate(),
+    //日 
+    "h+": this.getHours(),
+    //小时 
+    "m+": this.getMinutes(),
+    //分 
+    "s+": this.getSeconds(),
+    //秒 
+    "q+": Math.floor((this.getMonth() + 3) / 3),
+    //季度 
+    "S": this.getMilliseconds() //毫秒 
+  };
+
+  if (/(y+)/.test(fmt)) {
+    fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+  }
+  for (var k in o) {
+    if (new RegExp("(" + k + ")").test(fmt)) {
+      fmt = fmt.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+    }
+  }
+  return fmt;
+};
 
 //声明ajex统一处理方法
 _vue.default.prototype.ajax = function (url, method, data, fun) {
@@ -85,16 +127,23 @@ _vue.default.prototype.ajax = function (url, method, data, fun) {
       "token": that.param.token
     },
     success: function success(resp) {
-      console.log("登录成功");
+      console.log(resp);
+      console.log(resp.statusCode);
+      console.log(resp.data.code);
       if (resp.statusCode == 401) {
         uni.redirectTo({
           url: "/pages/login/login"
         });
       } else if (resp.statusCode == 200 && resp.data.code == 200) {
         var _data = resp.data;
+        console.log("登录成功");
         if (_data.hasOwnProperty("token")) {
           var token = _data.token;
           that.param.token = token;
+        }
+        if (_data.hasOwnProperty("userId")) {
+          that.param.userId = _data.userId;
+          console.log(that.param.userId);
         }
         fun(resp);
       } else {
@@ -105,6 +154,86 @@ _vue.default.prototype.ajax = function (url, method, data, fun) {
       }
     }
   });
+};
+_vue.default.prototype.checkNull = function (data, name) {
+  if (data == null) {
+    uni.showToast({
+      icon: "none",
+      title: name + "不能为空"
+    });
+    return true;
+  }
+  return false;
+};
+_vue.default.prototype.checkBlank = function (data, name) {
+  if (data == null || data == "") {
+    uni.showToast({
+      icon: "none",
+      title: name + "不能为空"
+    });
+    return true;
+  }
+  return false;
+};
+_vue.default.prototype.checkValidName = function (data, name) {
+  if (data == null || data == "") {
+    uni.showToast({
+      icon: "none",
+      title: name + "不能为空"
+    });
+    return true;
+  } else if (!/^[\u4e00-\u9fa5]{2,15}$/.test(data)) {
+    uni.showToast({
+      icon: "none",
+      title: name + "内容不正确"
+    });
+    return true;
+  }
+  return false;
+};
+_vue.default.prototype.checkValidTel = function (data, name) {
+  if (data == null || data == "") {
+    uni.showToast({
+      icon: "none",
+      title: name + "不能为空"
+    });
+    return true;
+  } else if (!/^1[0-9]{10}$/.test(data)) {
+    uni.showToast({
+      icon: "none",
+      title: name + "内容不正确"
+    });
+    return true;
+  }
+  return false;
+};
+_vue.default.prototype.checkValidEmail = function (data, name) {
+  if (data == null || data == "") {
+    uni.showToast({
+      icon: "none",
+      title: name + "不能为空"
+    });
+    return true;
+  } else if (!/^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/.test(data)) {
+    uni.showToast({
+      icon: "none",
+      title: name + "内容不正确"
+    });
+    return true;
+  }
+  return false;
+};
+_vue.default.prototype.checkValidStartAndEnd = function (start, end) {
+  var d1 = new Date("2000/01/01 " + start + ":00");
+  var d2 = new Date("2000/01/01 " + end + ":00");
+  if (d2.getTime() <= d1.getTime()) {
+    uni.showToast({
+      icon: "none",
+      title: "结束时间必须大于开始时间"
+    });
+    return true;
+  }
+  return false;
 };
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/wx.js */ 1)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["createApp"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 

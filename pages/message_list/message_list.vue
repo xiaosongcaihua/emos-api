@@ -73,7 +73,7 @@
 								icon:"none",
 								title:"又加载了"+result.length+"条消息"
 							})
-						} 
+						}
 					}
 				})
 			}

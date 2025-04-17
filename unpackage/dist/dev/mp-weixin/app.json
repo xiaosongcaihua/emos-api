@@ -11,7 +11,12 @@
     "pages/check_result/check_result",
     "pages/my_checkin/my_checkin",
     "pages/message_list/message_list",
-    "pages/message/message"
+    "pages/message/message",
+    "pages/meeting/meeting",
+    "pages/members/members",
+    "pages/approval/approval",
+    "pages/approval_list/approval_list",
+    "pages/role/role"
   ],
   "subPackages": [],
   "window": {

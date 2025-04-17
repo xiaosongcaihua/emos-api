@@ -1,0 +1,83 @@
+<template>
+
+	<view class="page" v-if="checkPermission(['ROOT', 'ROLE:SELECT'])">
+	<view v-for="one in list" :key="one.moduleName">
+		<view class="list-title">{{ one.moduleName }}</view>
+		<uni-list v-if="one.action.length > 0">
+			<uni-list-item v-for="action in one.action" :title="action.actionName" :key="action" :show-switch="true"
+				:switchChecked="action.selected" @switchChange="switchChange" :dataId="action.id"></uni-list-item>
+		</uni-list>
+	</view>
+	<button class="btn" @tap="save" v-if="checkPermission(['ROOT', 'ROLE:INSERT', 'ROLE:UPDATE'])">保存</button>
+	</view>
+</template>
+
+<script>
+	import uniList from '@/components/uni-list/uni-list.vue';
+	import uniListItem from '@/components/uni-list-item/uni-list-item.vue';
+	import uniPopup from '@/components/uni-popup/uni-popup.vue';
+	export default {
+		components: {
+			uniList,
+			uniListItem
+		},
+		data() {
+			return {
+				opt: null, //URL传参， insert代表新增， edit代表修改
+				roleName: null, //URL传参， 如果opt是edit， 需要根据角色名字查找该角色的权限
+				list: [{
+						id: 1,
+						moduleName: '用户管理',
+						action: [{
+								actionName: '添加',
+								selected: 1
+							},
+							{
+								actionName: '修改',
+								selected: 1
+							},
+							{
+								actionName: '查询',
+								selected: 1
+							},
+							{
+								actionName: '删除',
+								selected: 1
+							},
+						]
+					},
+					{
+						id: 2,
+						moduleName: '部门管理',
+						action: [{
+								actionName: '添加',
+								selected: 1
+							},
+							{
+								actionName: '修改',
+								selected: 1
+							},
+							{
+								actionName: '查询',
+								selected: 1
+							},
+							{
+								actionName: '删除',
+								selected: 1
+							},
+						]
+					}
+				],
+				id: 0,
+				selected: {}
+			};
+		},
+		methods: {
+
+		}
+	}
+</script>
+
+<style lang="less">
+	@import url("role.less");
+</style>

@@ -102,6 +102,33 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var m0 = _vm.checkPermission(["ROOT", "MEETING:INSERT"])
+  var l1 = _vm.__map(_vm.list, function (one, __i0__) {
+    var $orig = _vm.__get_orig(one)
+    var l0 = _vm.__map(one.list, function (meeting, __i1__) {
+      var $orig = _vm.__get_orig(meeting)
+      var m1 =
+        _vm.checkPermission(["ROOT", "MEETING:UPDATE"]) &&
+        meeting.status == "未开始"
+      return {
+        $orig: $orig,
+        m1: m1,
+      }
+    })
+    return {
+      $orig: $orig,
+      l0: l0,
+    }
+  })
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        m0: m0,
+        l1: l1,
+      },
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -135,12 +162,61 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
 
-
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -149,11 +225,200 @@ exports.default = void 0;
 //
 var _default = {
   data: function data() {
-    return {};
+    return {
+      page: 1,
+      length: 20,
+      list: [{
+        date: '2021年02月08日',
+        list: [{
+          id: 1,
+          date: '2021/02/08',
+          start: '08:30',
+          end: '10:30',
+          type: '线上会议',
+          name: '张爽',
+          place: '网络会议室',
+          status: '未开始',
+          title: '年终大会',
+          desc: '年终总结大会'
+        }, {
+          id: 2,
+          date: '2021/02/08',
+          start: '08:30',
+          end: '10:30',
+          type: '线上会议',
+          name: '张爽',
+          place: '网络会议室',
+          status: '未开始',
+          title: '年终大会',
+          desc: '年终总结大会'
+        }]
+      }, {
+        date: '2021年02月09日',
+        list: [{
+          id: 3,
+          date: '2021/02/09',
+          start: '08:30',
+          end: '10:30',
+          type: '线上会议',
+          name: '张爽',
+          place: '网络会议室',
+          status: '未开始',
+          title: '年终大会',
+          desc: '年终总结大会'
+        }]
+      }],
+      isLastPage: false
+    };
   },
-  methods: {}
+  onShow: function onShow() {
+    var that = this;
+    that.page = 1;
+    that.isLastPage = false;
+    that.list = [];
+    that.loadMeetingList(that);
+  },
+  onReachBottom: function onReachBottom() {
+    var that = this;
+    if (that.isLastPage) {
+      return;
+    }
+    that.page = that.page + 1;
+    that.loadMeetingList(that);
+  },
+  methods: {
+    loadMeetingList: function loadMeetingList(ref) {
+      var data = {
+        page: ref.page,
+        length: ref.length
+      };
+      ref.ajax(ref.url.searchMyMeetingListByPage, "POST", data, function (resp) {
+        var result = resp.data.result;
+        if (result == null || result.length == 0) {
+          ref.isLastPage = true;
+          ref.page = ref.page - 1;
+          if (ref.page > 1) {
+            uni.showToast({
+              icon: "none",
+              title: "已经到底了"
+            });
+          }
+        } else {
+          var _iterator = _createForOfIteratorHelper(result),
+            _step;
+          try {
+            for (_iterator.s(); !(_step = _iterator.n()).done;) {
+              var one = _step.value;
+              var _iterator2 = _createForOfIteratorHelper(one.list),
+                _step2;
+              try {
+                for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+                  var meeting = _step2.value;
+                  if (meeting.type == 1) {
+                    meeting.type = "线上会议";
+                  } else if (meeting.type == 2) {
+                    meeting.type = "线下会议";
+                  }
+                  if (meeting.status == 3) {
+                    meeting.status = "未开始";
+                  } else if (meeting.status == 4) {
+                    meeting.status = "进行中";
+                  }
+                }
+              } catch (err) {
+                _iterator2.e(err);
+              } finally {
+                _iterator2.f();
+              }
+              if (ref.list.length > 0) {
+                var last = ref.list[ref.list.length - 1];
+                if (last.date == one.date) {
+                  last.list = last.list.concat(one.list);
+                } else {
+                  ref.list.push(one);
+                }
+              } else {
+                ref.list.push(one);
+              }
+            }
+          } catch (err) {
+            _iterator.e(err);
+          } finally {
+            _iterator.f();
+          }
+        }
+      });
+    },
+    toMeetingPage: function toMeetingPage(id, opt) {
+      uni.navigateTo({
+        url: "../meeting/meeting?id=" + id + "&opt=" + opt
+      });
+    },
+    deleteById: function deleteById(id, date, start) {
+      var now = new Date();
+      var meetingDate = new Date(date + " " + start + ":00");
+      if (now.getTime() >= meetingDate.getTime() - 20 * 60 * 1000) {
+        uni.showToast({
+          icon: "none",
+          title: "该会议无法删除"
+        });
+        return;
+      }
+      var that = this;
+      uni.vibrateShort({});
+      uni.showModal({
+        title: "提示信息",
+        content: "是否删除这个会议？",
+        success: function success(resp) {
+          if (resp.confirm) {
+            var data = {
+              id: id
+            };
+            that.ajax(that.url.deleteMeetingById, "POST", data, function (resp) {
+              uni.showToast({
+                icon: "success",
+                title: "删除成功",
+                complete: function complete() {
+                  setTimeout(function () {
+                    that.page = 1;
+                    that.isLastPage = false;
+                    uni.pageScrollTo({
+                      scrollTop: "0"
+                    });
+                    that.list = [];
+                    that.loadMeetingList(that);
+                  }, 2000);
+                }
+              });
+            });
+          }
+        }
+      });
+    },
+    enter: function enter(id, uuid, date, start) {
+      date = date.replace("年", "/").replace("月", "/").replace("日", "");
+      var begin = new Date(date + " " + start + ":00");
+      var now = new Date();
+      if (now.getTime() >= begin.getTime() - 10 * 60 * 1000) {
+        this.ajax(this.url.searchRoomIdByUUID, "POST", (0, _defineProperty2.default)({
+          uuid: uuid
+        }, "uuid", uuid), function (resp) {
+          var roomId = resp.data.result;
+          uni.navigateTo({
+            url: "../video_meeting/video_meeting?id=" + id + "&roomId=" + roomId
+          });
+        });
+      } else {
+        uni.showToast({
+          icon: "none",
+          title: "会议开始前10分钟才能进入"
+        });
+      }
+    }
+  }
 };
 exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 
