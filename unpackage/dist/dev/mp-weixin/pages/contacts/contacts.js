@@ -98,6 +98,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components
+try {
+  components = {
+    uniIndexedList: function () {
+      return __webpack_require__.e(/*! import() | components/uni-indexed-list/uni-indexed-list */ "components/uni-indexed-list/uni-indexed-list").then(__webpack_require__.bind(null, /*! @/components/uni-indexed-list/uni-indexed-list.vue */ 212))
+    },
+  }
+} catch (e) {
+  if (
+    e.message.indexOf("Cannot find module") !== -1 &&
+    e.message.indexOf(".vue") !== -1
+  ) {
+    console.error(e.message)
+    console.error("1. 排查组件名称拼写是否正确")
+    console.error(
+      "2. 排查组件是否符合 easycom 规范，文档：https://uniapp.dcloud.net.cn/collocation/pages?id=easycom"
+    )
+    console.error(
+      "3. 若组件不符合 easycom 规范，需手动引入，并在 components 中注册该组件"
+    )
+  } else {
+    throw e
+  }
+}
 var render = function () {
   var _vm = this
   var _h = _vm.$createElement
@@ -135,25 +158,100 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(uni) {
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-//
-//
-//
-//
-//
-//
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it.return != null) it.return(); } finally { if (didErr) throw err; } } }; }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+var uniIndexedList = function uniIndexedList() {
+  __webpack_require__.e(/*! require.ensure | components/uni-indexed-list/uni-indexed-list */ "components/uni-indexed-list/uni-indexed-list").then((function () {
+    return resolve(__webpack_require__(/*! @/components/uni-indexed-list/uni-indexed-list.vue */ 212));
+  }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+};
 var _default = {
-  data: function data() {
-    return {};
+  components: {
+    uniIndexedList: uniIndexedList
   },
-  methods: {}
+  data: function data() {
+    return {
+      list: []
+    };
+  },
+  methods: {
+    clickContact: function clickContact(e) {
+      var that = this;
+      var name = e.item.name;
+      var key = e.item.key;
+      var tel;
+      var _iterator = _createForOfIteratorHelper(that.list),
+        _step;
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var one = _step.value;
+          if (one.letter == key) {
+            var i = one.data.indexOf(name);
+            tel = one.tel[i];
+            break;
+          }
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+      uni.showModal({
+        title: '提示信息',
+        content: '是否要打电话给' + name + '？ ',
+        success: function success(res) {
+          if (res.confirm) {
+            uni.makePhoneCall({
+              phoneNumber: tel
+            });
+          }
+        }
+      });
+    }
+  },
+  onShow: function onShow() {
+    var that = this;
+    that.list.length = 0;
+    that.ajax(that.url.searchUserContactList, 'GET', null, function (resp) {
+      var result = resp.data.result;
+      for (var key in result) {
+        var nameArray = [];
+        var telArray = [];
+        var _iterator2 = _createForOfIteratorHelper(result[key]),
+          _step2;
+        try {
+          for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+            var contact = _step2.value;
+            var name = contact.name;
+            var tel = contact.tel;
+            var dept = contact.dept;
+            dept = dept != '' ? '（' + dept + '） ' : '';
+            nameArray.push("".concat(name, " ").concat(dept));
+            telArray.push(tel);
+          }
+        } catch (err) {
+          _iterator2.e(err);
+        } finally {
+          _iterator2.f();
+        }
+        that.list.push({
+          letter: key,
+          data: nameArray,
+          tel: telArray
+        });
+      }
+    });
+  }
 };
 exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 

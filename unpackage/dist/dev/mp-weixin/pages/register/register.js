@@ -195,6 +195,8 @@ var _default = {
               };
               that.ajax(that.url.register, "POST", data, function (resp) {
                 var permission = resp.data.permission;
+                that.param.permission = permission;
+                that.param.token = resp.data.token;
                 uni.setStorage("permission", permission);
                 console.log("权限列表" + permission);
                 uni.switchTab({

@@ -24,7 +24,7 @@ export function createApp() {
 // #endif
 
 //声明全局路径
-let baseUrl = "http://localhost:8080"
+let baseUrl = "http://172.20.10.4:8080"
 let workflow = "http://localhost:9090/emos-workflow"
 Vue.prototype.url = {
 	register: baseUrl + "/user/register",
@@ -62,7 +62,13 @@ Vue.prototype.url = {
 	searchAllDept: baseUrl + "/dept/searchAllDept",
 	insertDept: baseUrl + "/dept/insertDept",
 	deleteDeptById: baseUrl + "/dept/deleteDeptById",
-	updateDeptById: baseUrl + "/dept/updateDeptById"
+	updateDeptById: baseUrl + "/dept/updateDeptById",
+	insertUser: baseUrl + "/user/insertUser",
+	searchUserInfo: baseUrl + "/user/searchUserInfo",
+	searchUserSelfInfo: baseUrl + "/user/searchUserSelfInfo",
+	updateUserInfo: baseUrl + "/user/updateUserInfo",
+	deleteUserById: baseUrl + "/user/deleteUserById",
+	searchUserContactList: baseUrl + "/user/searchUserContactList"
 }
 Vue.prototype.param = {
 	token: "",

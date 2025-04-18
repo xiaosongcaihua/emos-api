@@ -101,7 +101,7 @@ var components
 try {
   components = {
     uniPopup: function () {
-      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 185))
+      return Promise.all(/*! import() | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then(__webpack_require__.bind(null, /*! @/components/uni-popup/uni-popup.vue */ 169))
     },
   }
 } catch (e) {
@@ -180,17 +180,17 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 var uniPopup = function uniPopup() {
   Promise.all(/*! require.ensure | components/uni-popup/uni-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-popup/uni-popup")]).then((function () {
-    return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup.vue */ 185));
+    return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup.vue */ 169));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var uniPopupMessage = function uniPopupMessage() {
   __webpack_require__.e(/*! require.ensure | components/uni-popup/uni-popup-message */ "components/uni-popup/uni-popup-message").then((function () {
-    return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup-message.vue */ 194));
+    return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup-message.vue */ 233));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var uniPopupDialog = function uniPopupDialog() {
   __webpack_require__.e(/*! require.ensure | components/uni-popup/uni-popup-dialog */ "components/uni-popup/uni-popup-dialog").then((function () {
-    return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup-dialog.vue */ 201));
+    return resolve(__webpack_require__(/*! @/components/uni-popup/uni-popup-dialog.vue */ 240));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var _default = {

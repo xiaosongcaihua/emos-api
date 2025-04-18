@@ -18,7 +18,9 @@
     "pages/approval_list/approval_list",
     "pages/role/role",
     "pages/role_list/role_list",
-    "pages/dept_list/dept_list"
+    "pages/dept_list/dept_list",
+    "pages/user_list/user_list",
+    "pages/user_info/user_info"
   ],
   "subPackages": [],
   "window": {

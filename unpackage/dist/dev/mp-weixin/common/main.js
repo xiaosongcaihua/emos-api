@@ -29,7 +29,7 @@ var app = new _vue.default(_objectSpread({}, _App.default));
 createApp(app).$mount();
 
 //声明全局路径
-var baseUrl = "http://localhost:8080";
+var baseUrl = "http://172.20.10.4:8080";
 var workflow = "http://localhost:9090/emos-workflow";
 _vue.default.prototype.url = {
   register: baseUrl + "/user/register",
@@ -67,7 +67,13 @@ _vue.default.prototype.url = {
   searchAllDept: baseUrl + "/dept/searchAllDept",
   insertDept: baseUrl + "/dept/insertDept",
   deleteDeptById: baseUrl + "/dept/deleteDeptById",
-  updateDeptById: baseUrl + "/dept/updateDeptById"
+  updateDeptById: baseUrl + "/dept/updateDeptById",
+  insertUser: baseUrl + "/user/insertUser",
+  searchUserInfo: baseUrl + "/user/searchUserInfo",
+  searchUserSelfInfo: baseUrl + "/user/searchUserSelfInfo",
+  updateUserInfo: baseUrl + "/user/updateUserInfo",
+  deleteUserById: baseUrl + "/user/deleteUserById",
+  searchUserContactList: baseUrl + "/user/searchUserContactList"
 };
 _vue.default.prototype.param = {
   token: "",
