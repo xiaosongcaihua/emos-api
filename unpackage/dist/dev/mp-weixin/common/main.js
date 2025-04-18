@@ -30,7 +30,7 @@ createApp(app).$mount();
 
 //声明全局路径
 var baseUrl = "http://172.20.10.4:8080";
-var workflow = "http://localhost:9090/emos-workflow";
+var workflow = "http://172.20.10.4:9090/emos-workflow";
 _vue.default.prototype.url = {
   register: baseUrl + "/user/register",
   login: baseUrl + "/user/login",

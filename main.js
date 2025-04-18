@@ -25,7 +25,7 @@ export function createApp() {
 
 //声明全局路径
 let baseUrl = "http://172.20.10.4:8080"
-let workflow = "http://localhost:9090/emos-workflow"
+let workflow = "http://172.20.10.4:9090/emos-workflow"
 Vue.prototype.url = {
 	register: baseUrl + "/user/register",
 	login: baseUrl + "/user/login",

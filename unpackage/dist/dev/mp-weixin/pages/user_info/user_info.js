@@ -128,7 +128,7 @@ var render = function () {
   var l0 = _vm.showRoleDialog
     ? _vm.__map(_vm.roleArray, function (one, __i0__) {
         var $orig = _vm.__get_orig(one)
-        var g0 = _vm.roles.split("， ").indexOf(one.roleName)
+        var g0 = _vm.roles.split(", ").indexOf(one.roleName)
         return {
           $orig: $orig,
           g0: g0,
@@ -214,6 +214,8 @@ var _default = {
   },
   onShow: function onShow() {
     var that = this;
+    that.loadDeptData(that);
+    that.loadRoleData(that);
     if (that.opt == 'insert') {
       var now = new Date();
       var year = now.getFullYear();
@@ -223,8 +225,6 @@ var _default = {
       date = date < 10 ? '0' + date : date;
       that.hiredate = year + '-' + month + '-' + date;
     }
-    that.loadDeptData(that);
-    that.loadRoleData(that);
   },
   data: function data() {
     return {
@@ -277,8 +277,9 @@ var _default = {
       that.ajax(that.url.searchUserInfo, 'POST', {
         userId: that.userId
       }, function (resp) {
-        console.log(resp);
+        console.log("用户详情");
         var result = resp.data.result;
+        console.log(result);
         that.name = result.name;
         that.nickname = result.nickname;
         that.photo = result.photo;
@@ -286,7 +287,7 @@ var _default = {
         that.tel = result.tel;
         // that.dept = result.deptId; // 注意这个字段名称是否一致
         that.hiredate = result.hiredate;
-        that.roles = result.roles;
+        // that.roles = result.roles;
         that.sexIndex = result.sex === '女' ? 1 : 0;
         that.statusIndex = result.status === '离职' ? 1 : 0;
 
@@ -414,6 +415,7 @@ var _default = {
       ref.ajax(ref.url.searchAllRole, 'GET', null, function (resp) {
         var result = resp.data.result;
         ref.roleArray = result;
+        console.log("当前加载的角色:" + ref.roleArray + ": " + ref.roleArray[0].roleName);
       });
     },
     editName: function editName() {

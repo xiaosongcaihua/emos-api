@@ -220,6 +220,7 @@ var _default = {
     };
   },
   onLoad: function onLoad(options) {
+    console.log("processType : " + options.processType + " id: " + options.id + " taskId: " + options.taskId);
     this.processType = options.processType;
     this.id = options.id;
     if (options.hasOwnProperty("taskId")) {

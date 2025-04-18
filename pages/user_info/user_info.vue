@@ -63,7 +63,7 @@
 				<text class="confirm" @tap="confirm">确定</text>
 				<checkbox-group @change="roleChange">
 					<label class="list-item" v-for="one in roleArray" :key="one.id">
-						<checkbox :value="one.id" :checked="roles.split('， ').indexOf(one.roleName) != -1" />
+						<checkbox :value="one.id" :checked="roles.split(', ').indexOf(one.roleName) != -1" />
 						<text>{{ one.roleName }}</text>
 					</label>
 				</checkbox-group>
@@ -88,6 +88,8 @@
 		},
 		onShow: function() {
 			let that = this;
+			that.loadDeptData(that);
+			that.loadRoleData(that);
 			if (that.opt == 'insert') {
 				let now = new Date();
 				let year = now.getFullYear();
@@ -97,8 +99,7 @@
 				date = date < 10 ? '0' + date : date;
 				that.hiredate = year + '-' + month + '-' + date;
 			}
-			that.loadDeptData(that);
-			that.loadRoleData(that);
+
 		},
 		data() {
 			return {
@@ -151,8 +152,10 @@
 				that.ajax(that.url.searchUserInfo, 'POST', {
 					userId: that.userId
 				}, function(resp) {
-					console.log(resp)
+					console.log("用户详情")
+				
 					let result = resp.data.result;
+					console.log(result)
 					that.name = result.name;
 					that.nickname = result.nickname;
 					that.photo = result.photo;
@@ -160,7 +163,7 @@
 					that.tel = result.tel;
 					// that.dept = result.deptId; // 注意这个字段名称是否一致
 					that.hiredate = result.hiredate;
-					that.roles = result.roles;
+					// that.roles = result.roles;
 					that.sexIndex = result.sex === '女' ? 1 : 0;
 					that.statusIndex = result.status === '离职' ? 1 : 0;
 
@@ -278,6 +281,7 @@
 					function(resp) {
 						let result = resp.data.result;
 						ref.roleArray = result;
+						console.log("当前加载的角色:" + ref.roleArray + ": " + ref.roleArray[0].roleName)
 					});
 			},
 			editName: function() {
